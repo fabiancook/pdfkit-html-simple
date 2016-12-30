@@ -1,0 +1,28 @@
+{
+  "name": "@shipper/pdfkit-html-simple",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "dependencies": {
+    "cheerio": "^0.22.0",
+    "css": "^2.2.1",
+    "parse5": "^3.0.1",
+    "pdfkit": "^0.8.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fabiancook/pdfkit-html-simple.git"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/fabiancook/pdfkit-html-simple/issues"
+  },
+  "homepage": "https://github.com/fabiancook/pdfkit-html-simple#readme"
+}
