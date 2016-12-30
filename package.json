@@ -1,6 +1,6 @@
 {
   "name": "@shipper/pdfkit-html-simple",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "directories": {
@@ -13,8 +13,7 @@
     "pdfkit": "^0.8.0"
   },
   "devDependencies": {},
-  "scripts": {
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/fabiancook/pdfkit-html-simple.git"
