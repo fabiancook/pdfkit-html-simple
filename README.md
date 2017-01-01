@@ -7,7 +7,7 @@ Usage:
 
 ```js
 const PDFKitHTML = require('@shipper/pdfkit-html-simple'),
-    html = ```
+    html = `
     <html>
         <head>
           <style type="text/css">
@@ -33,7 +33,7 @@ const PDFKitHTML = require('@shipper/pdfkit-html-simple'),
           <span class="underline">This is also underlined</span>
         </body>
     </html>
-    ```;
+    `;
     
 PDFKitHTML.parse(html)
     .then(function(transformations) {
