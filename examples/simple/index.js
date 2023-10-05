@@ -19,6 +19,54 @@ const Lib = require('../../lib'),
 
 const buffer = FS.readFileSync('examples/simple/example.html');
 
+/**
+ * optional options
+ */
+const options = {
+  /**
+   * custom css styles
+   */
+  style: `
+    p {
+      margin-bottom: 1rem;
+    }
+  `,
+  colors: {
+    base: 'black',
+    link: 'blue'
+  },
+  fontSizes: {
+    base: 12
+  },
+  fonts: {
+    /**
+     * default font, for reference
+     */
+    'Helvetica': [
+      {
+        bold: false,
+        italic: false,
+        source: 'Helvetica'
+      },
+      {
+        bold: true,
+        italic: false,
+        source: 'Helvetica-Bold'
+      },
+      {
+        bold: false,
+        italic: true,
+        source: 'Helvetica-Oblique'
+      },
+      {
+        bold: true,
+        italic: true,
+        source: 'Helvetica-BoldOblique'
+      }
+    ]
+  }
+};
+
 const document = new PDFDocument({
   autoFirstPage: true,
   bufferPages: true,
@@ -36,34 +84,31 @@ document.info.Keywords = '';
 document.info.CreationDate = new Date();
 document.info.ModDate = new Date();
 
-Lib.parse(buffer)
-  .then(function(transformations) {
-    return transformations.reduce(function(promise, transformation) {
-      return promise.then(transformation);
-    }, Promise.resolve(document));
-  })
-  .then(function(document) {
-    return new Promise(function(resolve, reject) {
-      const buffers = [];
+new Promise(function(resolve, reject) {
+  const buffers = [];
 
-      document.on('data', function(chunk) {
-        buffers.push(chunk);
-      });
+  document.on('data', function(chunk) {
+    buffers.push(chunk);
+  });
 
-      document.on('error', reject);
+  document.on('error', reject);
 
-      document.on('end', function() {
-        resolve(
-          Buffer.concat(buffers)
-        );
-      });
+  document.on('end', function() {
+    resolve(
+      Buffer.concat(buffers)
+    );
+  });
 
-      document.flushPages();
-      document.end();
-    });
-  })
-  .then(function(buffer) {
-    FS.writeFileSync('examples/simple/output.pdf', buffer);
-  })
-  .then(console.log)
-  .catch(console.error);
+  document.font(Object.keys(options.fonts)[0]);
+  document.fontSize(options.fontSizes.base);
+
+  document = Lib.parse(buffer, document, options);
+
+  document.flushPages();
+  document.end();
+})
+.then(function(buffer) {
+  FS.writeFileSync('examples/simple/output.pdf', buffer);
+})
+.then(console.log)
+.catch(console.error);
