@@ -102,7 +102,7 @@ new Promise(function(resolve, reject) {
   document.font(Object.keys(options.fonts)[0]);
   document.fontSize(options.fontSizes.base);
 
-  document = Lib.parse(buffer, document, options);
+  Lib.parse(buffer, document, options);
 
   document.flushPages();
   document.end();
